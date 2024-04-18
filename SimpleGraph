@@ -1,0 +1,43 @@
+import java.util.*;
+
+public class SimpleGraph {
+    private int V; // Liczba wierzchołków
+    private List<List<int[]>> adjList; // Lista sąsiedztwa
+
+    public SimpleGraph(int V) {
+        this.V = V;
+        adjList = new ArrayList<>(V);
+        for (int i = 0; i < V; ++i)
+            adjList.add(new ArrayList<>());
+    }
+
+    // Metoda dodająca krawędź
+    public void addEdge(int u, int v, int weight) {
+        adjList.get(u).add(new int[]{v, weight});
+        adjList.get(v).add(new int[]{u, weight}); // Dla grafu nieskierowanego
+    }
+
+    // Metoda wyświetlająca graf
+    public void printGraph() {
+        for (int u = 0; u < V; ++u) {
+            System.out.print("Vertex " + u + ": ");
+            for (int[] edge : adjList.get(u)) {
+                int v = edge[0];
+                int weight = edge[1];
+                System.out.print("(" + v + ", " + weight + ") ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        int V = 4;
+        SimpleGraph graph = new SimpleGraph(V);
+
+        graph.addEdge(0, 1, 10);
+        graph.addEdge(0, 2, 15);
+        graph.addEdge(1, 2, 20);
+
+        graph.printGraph();
+    }
+}
